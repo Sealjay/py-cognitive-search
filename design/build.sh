@@ -1,1 +1,2 @@
-npx tailwindcss-cli@latest build -o tailwind.css
+mkdir build
+npx postcss input.css > build/main.css

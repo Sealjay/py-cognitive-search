@@ -1,2 +1,3 @@
 -r crawler/requirements-dev.txt
 -r crawler/requirements.txt
+-r infra/requirements-dev.txt

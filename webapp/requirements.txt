@@ -1,0 +1,8 @@
+starlette
+jinja2
+python-dotenv
+aiofiles
+# Required for deploying to Azure
+uvicorn
+uvloop
+httptools

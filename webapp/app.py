@@ -24,7 +24,6 @@ def short_summary(text):
     if "An Act for" in text:
         token = "An Act for"
     if token in text and "[" in text:
-        print("it's here")
         split_text = text.split(token)[1]
         split_text = split_text.split("[")
         purpose = f"{token} {split_text.pop(0)} "

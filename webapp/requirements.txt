@@ -6,3 +6,5 @@ aiofiles
 uvicorn
 uvloop
 httptools
+azure-search
+gensim_sum_ext

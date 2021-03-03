@@ -23,14 +23,18 @@
           </div>
           <div class="mt-4 w-full max-w-xs">
             <div class="mt-1.5 relative">
-              <label for="searchtext" class="sr-only"
-                >Enter your search terms...</label
-              >
-              <input type="text" name="searchtext" id="email"
-              class="appearance-none block w-full bg-none bg-white border
-              border-gray-300 rounded-md pl-3 pr-10 py-2 text-base text-gray-900
-              focus:outline-none focus:ring-indigo-500 focus:border-indigo-500
-              sm:text-sm"" placeholder="Enter your search terms..." />
+              <form method="get" action="/search">
+                <label for="searchtext" class="sr-only"
+                  >Enter your search terms...</label
+                >
+
+                <input type="text" name="searchtext" id="email"
+                class="appearance-none block w-full bg-none bg-white border
+                border-gray-300 rounded-md pl-3 pr-10 py-2 text-base
+                text-gray-900 focus:outline-none focus:ring-indigo-500
+                focus:border-indigo-500 sm:text-sm"" placeholder="Enter your
+                search terms..." />
+              </form>
             </div>
           </div>
         </div>

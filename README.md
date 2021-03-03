@@ -1,5 +1,17 @@
 # Py-Cognitive-Search
-A demonstrator of the Microsoft Cognitive Search, deployed in Azure with Python.
+A demonstrator of Microsoft Cognitive Search, deployed in Azure with Python.
+
+## Documentation
+This repository supports a six-part blog series, using Azure Cognitive Search to index UK Law going back to the 1800s, to make it accessible and comprehensible.
+
+### Get Started with the related blog posts
+
+1. Search - [Creating an indexer for Azure Cognitive Search through the Azure portal](https://sealjay.com/cognitive-search-law-part1-indexer/)
+2. Integration - Integrating Azure Cognitive Search with a Python Web Application, using the Azure SDK for Python **Not yet published**
+3. Getting a Dataset - How the UK Legislation dataset was crawled and downloaded **Not yet published**
+4. User Interface - Creating a layout for your web application using Tailwind CSS, making the most of Azure Cognitive Search features **Not yet published**
+5. Infrastructure as Code - Deploying the entire solution using Pulumi and GitHub Actions **Not yet published**
+6. Answers - How can we use Azure Cognitive Search to answer questions about the law using Semantic Search **Not yet published**
 
 ## Software Installation
 
@@ -29,3 +41,6 @@ A demonstrator of the Microsoft Cognitive Search, deployed in Azure with Python.
    ```bash
    $ pip3 install -r requirements.txt
    ```
+
+# Find out more
+[This is why Cognitive Search is so valuable](https://sealjay.com/unlocking-content-with-summaries-and-insight/) - unlocking information within your content.

@@ -1,0 +1,16 @@
+{% extends 'layout/base.html' %} {% block pagetitle %}Search - {{ searchtext
+}}{% endblock %} {% block container %}
+<div class="max-w-7xl mx-auto my-8 px-4 sm:px-6">
+  <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+    <div class="px-4 py-5 sm:px-6">
+      <h3 class="text-lg leading-6 font-medium text-gray-900">
+        Results for "{{ searchtext }}"
+      </h3>
+    </div>
+  </div>
+</div>
+
+{% for result in results %} {% with title=result["title"], subtitle="UK
+Legislation", description=result["merged_content"],
+url=result["metadata_storage_name"] %} {% include 'layout/search-block.html' %}
+{% endwith %} {% endfor %} {% endblock %}

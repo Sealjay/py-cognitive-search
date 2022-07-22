@@ -1,3 +1,6 @@
 nltk===3.7
 pymupdf===1.20.1
 azure-ai-textanalytics==5.1.0
+python-dotenv==0.20.0
+scipdf @ git+https://github.com/titipata/scipdf_parser@d6ac484747dfcb4872894fc7c465b1b5958ea0c9
+beautifulsoup4===4.11.1

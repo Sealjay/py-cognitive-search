@@ -1,29 +1,34 @@
 from array import array
-import os
+import os, io
 import fitz
 import sys, time, re
 import nltk.data
 from azure.ai.textanalytics import TextAnalyticsClient
 from azure.core.credentials import AzureKeyCredential
 from dotenv import load_dotenv
-
-# from nltk.corpus import stopwords
-# from nltk.stem.porter import PorterStemmer
+import scipdf
+import contextlib
+import warnings
+from bs4.builder import XMLParsedAsHTMLWarning
 
 nltk.download('punkt')
 load_dotenv()
 
-# nltk.download("stopwords")
+
+warnings.filterwarnings('ignore', category=XMLParsedAsHTMLWarning)
 
 key = os.getenv('KEY')
 endpoint =  os.getenv('ENDPOINT')
 
-def get_text_from_pdf(filepath: str) -> str:
-    doc = fitz.open(filepath)
-    text = ""
-    for page in doc:
-        text += page.get_text()
-    return text
+def get_text_from_academic_pdf(filepath: str) -> str:
+    print("processing file:", filepath)
+    try:
+        article_dict = scipdf.parse_pdf_to_dict(filepath)
+        abstract_text=article_dict['abstract']
+    except:
+        print("error processing file:", filepath)
+        abstract_text="ERROR"
+    return abstract_text
 
 def extract_pdf_text(directory: str):
     fileCount=0
@@ -32,19 +37,11 @@ def extract_pdf_text(directory: str):
         for filename in files:
             filepath = subdir + os.sep + filename
             if filepath.endswith(".pdf"):
-                print(os.path.join(directory, filename))
                 fileName=os.path.basename(filepath)
                 fileCount+=1
-                fileText[fileName]=get_text_from_pdf(filepath)
-
-    print("run time", round(time.process_time(), 2))
-    print("extracted text from files", fileCount)
+                fileText[fileName]=get_text_from_academic_pdf(filepath)
     return fileCount, fileText
 
-def remove_citations(text):
-    text = re.sub(r"\s\([A-Z][a-z]+,\s[A-Z][a-z]?\.[^\)]*,\s\d{4}\)", "", text)
-    # source: https://stackoverflow.com/questions/39936527/python-removing-references-from-a-scientific-paper
-    return text
 
 def clean_strings(text):
     text=text.encode(encoding="ascii", errors="ignore")
@@ -54,7 +51,6 @@ def clean_strings(text):
     return text
 
 def text_to_sentences(tokenizer,text) -> array:
-    text=remove_citations(text)
     tokens=tokenizer.tokenize(text)
     tokens=list(map(clean_strings, tokens))
     return tokens
@@ -112,25 +108,21 @@ def sentiment_analysis(client, sentences_array):
                         assessment.confidence_scores.positive,
                         assessment.confidence_scores.negative,
                     ))
-            print("\n")
-        print("\n")
         ### end of attribution
 
 def mine_over_docs(sentencesDict, client, sentiment_func):
     for fileName, sentences in sentencesDict.items():
-        print("processing file:", fileName)
+        print("mining file:", fileName)
         ## split array into batches of 10
         batches = [sentences[i:i+10] for i in range(0, len(sentences), 10)]
         for batch in batches:
             sentiment_func(client, batch)
-        print("\n----------------------------------------------------\n")
+        print("----------------------------------------------------")
 
 directory=os.getcwd()
 fileCount, fileTextDict=extract_pdf_text(directory)
 tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
 sentencesDict=extract_all_sentences(tokenizer,fileTextDict)
 client = authenticate_client()
-#stop_words = set(stopwords.words("english"))
 
 mine_over_docs(sentencesDict,client,sentiment_analysis)
-# To-do: Remove citations etc

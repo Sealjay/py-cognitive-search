@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+        grobid:
+                image: lfoppiano/grobid:0.7.2-SNAPSHOT
+                ports:
+                        - "8070:8070"
+                        - "8071:8071"
+                expose:
+                        - "8070"
+                        - "8071"
+        app:
+                build: .
+                ports:
+                        - "5000:5000"
+                depends_on:
+                   - grobid
+                command: ["wait4x", "http", "http://127.0.0.1:8070/api/isalive","--expect-status-code","200","-t","600s","-i","5s","--expect-body='true","--", "python","extract_academic_pdf_text.py"]

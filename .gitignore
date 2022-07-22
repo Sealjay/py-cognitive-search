@@ -704,3 +704,4 @@ design/tailwind.css
 design/main.css
 crawler/download/*
 crawler/legislation_cache.sqlite
+extraction/example-pdf.pdf

@@ -8,10 +8,10 @@ services:
                 expose:
                         - "8070"
                         - "8071"
+                network_mode: host
         app:
                 build: .
-                ports:
-                        - "5000:5000"
                 depends_on:
                    - grobid
-                command: ["wait4x", "http", "http://127.0.0.1:8070/api/isalive","--expect-status-code","200","-t","600s","-i","5s","--expect-body='true","--", "python","extract_academic_pdf_text.py"]
+                network_mode: host
+                command: ["wait4x", "http", "http://localhost:8070/api/isalive","-t","600s","-i","5s","--expect-status-code","200","--expect-body-regex","^true$$","--", "python","extract_academic_pdf_text.py"]

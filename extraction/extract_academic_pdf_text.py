@@ -1,4 +1,5 @@
 from array import array
+import errno
 import os, io
 import fitz
 import sys, time, re
@@ -14,7 +15,6 @@ from bs4.builder import XMLParsedAsHTMLWarning
 nltk.download('punkt')
 load_dotenv()
 
-
 warnings.filterwarnings('ignore', category=XMLParsedAsHTMLWarning)
 
 key = os.getenv('KEY')
@@ -25,7 +25,8 @@ def get_text_from_academic_pdf(filepath: str) -> str:
     try:
         article_dict = scipdf.parse_pdf_to_dict(filepath)
         abstract_text=article_dict['abstract']
-    except:
+    except Exception as e:
+        print(e)
         print("error processing file:", filepath)
         abstract_text="ERROR"
     return abstract_text

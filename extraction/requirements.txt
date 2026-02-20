@@ -1,4 +1,4 @@
-nltk===3.7
+nltk===3.9.2
 pymupdf===1.20.1
 azure-ai-textanalytics==5.1.0
 python-dotenv==0.20.0

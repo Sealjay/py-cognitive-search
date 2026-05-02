@@ -1,3 +1,5 @@
+> **Archived.** This repository is no longer maintained. It was created as a demonstrator for Azure Cognitive Search and is preserved for reference only.
+
 # Py-Cognitive-Search
 > A demonstrator of Microsoft Cognitive Search, deployed in Azure with Python.
 
